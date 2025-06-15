@@ -1,3 +1,4 @@
+
 // src/lib/constants.ts
 import type { LucideIcon } from 'lucide-react';
 import {
@@ -47,6 +48,110 @@ export const QUOTES = [
   {
     text: "An investment in knowledge pays the best interest.",
     author: "Benjamin Franklin"
+  },
+  {
+    text: "The mind is everything. What you think you become.",
+    author: "Buddha"
+  },
+  {
+    text: "Live as if you were to die tomorrow. Learn as if you were to live forever.",
+    author: "Mahatma Gandhi"
+  },
+  {
+    text: "Education is the most powerful weapon which you can use to change the world.",
+    author: "Nelson Mandela"
+  },
+  {
+    text: "The roots of education are bitter, but the fruit is sweet.",
+    author: "Aristotle"
+  },
+  {
+    text: "Develop a passion for learning. If you do, you will never cease to grow.",
+    author: "Anthony J. D'Angelo"
+  },
+  {
+    text: "Wisdom is not a product of schooling but of the lifelong attempt to acquire it.",
+    author: "Albert Einstein"
+  },
+  {
+    text: "Tell me and I forget. Teach me and I remember. Involve me and I learn.",
+    author: "Benjamin Franklin"
+  },
+  {
+    text: "The expert in anything was once a beginner.",
+    author: "Helen Hayes"
+  },
+  {
+    text: "Change is the end result of all true learning.",
+    author: "Leo Buscaglia"
+  },
+  {
+    text: "The more that you read, the more things you will know. The more that you learn, the more places you'll go.",
+    author: "Dr. Seuss"
+  },
+  {
+    text: "Success is no accident. It is hard work, perseverance, learning, studying, sacrifice and most of all, love of what you are doing or learning to do.",
+    author: "Pelé"
+  },
+  {
+    text: "A person who never made a mistake never tried anything new.",
+    author: "Albert Einstein"
+  },
+  {
+    text: "Learning is a treasure that will follow its owner everywhere.",
+    author: "Chinese Proverb"
+  },
+  {
+    text: "Education is not the filling of a pail, but the lighting of a fire.",
+    author: "W.B. Yeats"
+  },
+  {
+    text: "The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice.",
+    author: "Brian Herbert"
+  },
+  {
+    text: "Don’t let what you cannot do interfere with what you can do.",
+    author: "John Wooden"
+  },
+  {
+    text: "Knowledge is power. Information is liberating. Education is the premise of progress, in every society, in every family.",
+    author: "Kofi Annan"
+  },
+  {
+    text: "The future belongs to those who believe in the beauty of their dreams.",
+    author: "Eleanor Roosevelt"
+  },
+  {
+    text: "Strive for progress, not perfection.",
+    author: "Unknown"
+  },
+  {
+    text: "You are never too old to set another goal or to dream a new dream.",
+    author: "C.S. Lewis"
+  },
+  {
+    text: "The only way to do great work is to love what you do.",
+    author: "Steve Jobs"
+  },
+  {
+    text: "Believe you can and you're halfway there.",
+    author: "Theodore Roosevelt"
+  },
+  {
+    text: "It does not matter how slowly you go as long as you do not stop.",
+    author: "Confucius"
+  },
+  {
+    text: "The important thing is not to stop questioning. Curiosity has its own reason for existing.",
+    author: "Albert Einstein"
+  },
+  {
+    text: "Learning is not attained by chance, it must be sought for with ardor and attended to with diligence.",
+    author: "Abigail Adams"
+  },
+  {
+    text: "Intellectual growth should commence at birth and cease only at death.",
+    author: "Albert Einstein"
   }
 ];
 
@@ -116,3 +221,4 @@ export const MOCK_EXTRA_CHAT_MESSAGES: ExtraChatMessage[] = [
       avatar: '/path/to/assistant-avatar.png',
     },
 ];
+
