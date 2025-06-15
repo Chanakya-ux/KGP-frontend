@@ -10,11 +10,12 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Inter', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
+        body: ['Inter', 'var(--font-inter)', 'sans-serif'],
+        headline: ['Inter', 'var(--font-inter)', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
+        'background-page': 'hsl(var(--background-page))', // Custom page background
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
