@@ -2,28 +2,24 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ChatInput } from "@/components/chat/ChatInput";
-import { ChatWindow } from "@/components/chat/ChatWindow";
-import type { ChatMessage } from "./actions";
-import { processUserMessage } from "./actions";
-import { Logo } from "@/components/Logo";
+import { AppHeader } from "@/components/layout/AppHeader";
+import { NavDrawer } from "@/components/layout/NavDrawer";
+import { QuoteCarousel } from "@/components/home/QuoteCarousel";
+import { GuidanceGrid } from "@/components/home/GuidanceGrid";
+import { KgptAiChatModal } from "@/components/kgptai/KgptAiChatModal";
+import { ExtraChatSheet } from "@/components/extrachat/ExtraChatSheet";
+import type { GuidanceButtonProps as ButtonData } from '@/lib/constants';
 import { useToast } from "@/hooks/use-toast";
-import { Button } from "@/components/ui/button";
-import { MessageSquarePlus, Sun, Moon } from "lucide-react";
+import { Toaster } from "@/components/ui/toaster"; // Ensure Toaster is here for page-specific toasts
 
-export default function Home() {
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      id: "initial-greeting",
-      role: "assistant",
-      content: "Hello! I'm KGPT, your AI assistant for IIT Kharagpur. How can I help you today? You can ask about academics, campus information, or get schedule reminders.",
-    },
-  ]);
-  const [isLoading, setIsLoading] = useState(false);
+export default function KGPellenceStylePage() {
+  const [isNavDrawerOpen, setIsNavDrawerOpen] = useState(false);
+  const [isKgptAiChatModalOpen, setIsKgptAiChatModalOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>('dark'); // Default to dark theme
   const { toast } = useToast();
 
   useEffect(() => {
+    // Apply theme class to HTML element
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
       document.documentElement.classList.remove('light');
@@ -33,65 +29,49 @@ export default function Home() {
     }
   }, [theme]);
 
-  const handleSendMessage = async (messageText: string) => {
-    if (!messageText.trim()) return;
-
-    const newUserMessage: ChatMessage = {
-      id: Date.now().toString(),
-      role: "user",
-      content: messageText,
-    };
-    setMessages((prevMessages) => [...prevMessages, newUserMessage]);
-    setIsLoading(true);
-
-    try {
-      const assistantResponse = await processUserMessage(messageText);
-      setMessages((prevMessages) => [...prevMessages, assistantResponse]);
-    } catch (error) {
-      console.error("Failed to get assistant response:", error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: error instanceof Error ? error.message : "Could not connect to the assistant. Please try again.",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const startNewChat = () => {
-    setMessages([
-      {
-        id: "initial-greeting-new",
-        role: "assistant",
-        content: "New chat started! How can I assist you with IIT Kharagpur related queries?",
-      },
-    ]);
-  };
-
   const toggleTheme = () => {
     setTheme(prevTheme => (prevTheme === 'dark' ? 'light' : 'dark'));
   };
 
+  const handleGuidanceButtonClick = (
+    actionType: ButtonData['actionType'],
+    actionValue?: string
+  ) => {
+    if (actionType === 'modal' && actionValue === 'kgptAiChat') {
+      setIsKgptAiChatModalOpen(true);
+    } else if (actionType === 'link' && actionValue) {
+      window.open(actionValue, '_blank');
+    } else {
+      // Placeholder for other actions
+      toast({
+        title: "Feature Not Implemented",
+        description: `The action for "${actionValue || 'this button'}" is not yet configured.`,
+      });
+    }
+  };
+
   return (
-    <div className="flex flex-col h-screen bg-[hsl(var(--background-page))]">
-      <header className="bg-primary text-primary-foreground p-3 shadow-md flex items-center justify-between print:hidden">
-        <Logo />
-        <div className="flex items-center space-x-2">
-          <Button variant="ghost" size="icon" onClick={toggleTheme} title="Toggle Theme" className="text-primary-foreground hover:bg-primary/80">
-            {theme === 'dark' ? <Sun size={24} /> : <Moon size={24} />}
-            <span className="sr-only">Toggle Theme</span>
-          </Button>
-          <Button variant="ghost" size="icon" onClick={startNewChat} title="Start New Chat" className="text-primary-foreground hover:bg-primary/80">
-            <MessageSquarePlus size={24} />
-            <span className="sr-only">Start New Chat</span>
-          </Button>
-        </div>
-      </header>
-      <main className="flex-grow flex flex-col overflow-hidden">
-        <ChatWindow messages={messages} isLoading={isLoading} />
+    <div className="flex flex-col min-h-screen bg-background-page transition-colors duration-300">
+      <AppHeader 
+        onMenuClick={() => setIsNavDrawerOpen(true)}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+      />
+      <NavDrawer isOpen={isNavDrawerOpen} onClose={() => setIsNavDrawerOpen(false)} />
+      
+      <main className="flex-grow">
+        <QuoteCarousel />
+        <GuidanceGrid onButtonClick={handleGuidanceButtonClick} />
       </main>
-      <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+
+      <KgptAiChatModal 
+        isOpen={isKgptAiChatModalOpen} 
+        onClose={() => setIsKgptAiChatModalOpen(false)} 
+      />
+      
+      <ExtraChatSheet />
+      {/* Toaster is in RootLayout, but if you need page specific toasts, ensure it's available */}
+      {/* <Toaster /> already in RootLayout */}
     </div>
   );
 }
