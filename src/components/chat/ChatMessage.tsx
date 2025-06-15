@@ -12,11 +12,16 @@ interface ChatMessageProps {
 export function ChatMessage({ message }: ChatMessageProps) {
   const isUser = message.role === "user";
 
+  // Prevent animation for initial system message
+  const shouldAnimate = message.id !== "initial-greeting" && message.id !== "initial-greeting-new" && message.id !== "loading";
+
+
   return (
     <div
       className={cn(
         "flex items-end space-x-3 py-2",
-        isUser ? "justify-end" : "justify-start"
+        isUser ? "justify-end" : "justify-start",
+        shouldAnimate && "animate-message-appear" 
       )}
     >
       {!isUser && (
