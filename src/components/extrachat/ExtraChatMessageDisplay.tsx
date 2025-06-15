@@ -81,7 +81,7 @@ export function ExtraChatWindow({ messages, isLoading }: ExtraChatWindowProps) {
   
     return (
       <ScrollArea className="flex-grow p-4">
-        <div className="space-y-1">
+        <div className="space-y-2"> {/* Updated from space-y-1 to space-y-2 */}
           {messages.map((msg) => (
             <ExtraChatMessageDisplay key={msg.id} message={msg} />
           ))}
