@@ -16,7 +16,7 @@ export default function Home() {
     {
       id: "initial-greeting",
       role: "assistant",
-      content: "Hello! I'm KGP-Assist, your AI assistant for IIT Kharagpur. How can I help you today? You can ask about academics, campus information, or get schedule reminders.",
+      content: "Hello! I'm KGPT, your AI assistant for IIT Kharagpur. How can I help you today? You can ask about academics, campus information, or get schedule reminders.",
     },
   ]);
   const [isLoading, setIsLoading] = useState(false);

@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'KGP-Assist',
+  title: 'KGPT',
   description: 'AI Assistant for IIT Kharagpur students',
 };
 
