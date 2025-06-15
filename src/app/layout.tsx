@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} dark`}>
+    <html lang="en" className={`${inter.variable}`}>
       <head>
         {/* Google Fonts links are kept as per guidelines, though Next/Font is used here for Inter */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />

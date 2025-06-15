@@ -9,7 +9,7 @@ import { processUserMessage } from "./actions";
 import { Logo } from "@/components/Logo";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
-import { MessageSquarePlus } from "lucide-react";
+import { MessageSquarePlus, Sun, Moon } from "lucide-react";
 
 export default function Home() {
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -20,7 +20,18 @@ export default function Home() {
     },
   ]);
   const [isLoading, setIsLoading] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark'); // Default to dark theme
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    }
+  }, [theme]);
 
   const handleSendMessage = async (messageText: string) => {
     if (!messageText.trim()) return;
@@ -43,8 +54,6 @@ export default function Home() {
         title: "Error",
         description: error instanceof Error ? error.message : "Could not connect to the assistant. Please try again.",
       });
-      // Optionally add an error message to chat
-      // setMessages((prevMessages) => [...prevMessages, { id: Date.now().toString(), role: 'system', content: 'Error: Could not get response.' }]);
     } finally {
       setIsLoading(false);
     }
@@ -60,15 +69,24 @@ export default function Home() {
     ]);
   };
 
+  const toggleTheme = () => {
+    setTheme(prevTheme => (prevTheme === 'dark' ? 'light' : 'dark'));
+  };
 
   return (
     <div className="flex flex-col h-screen bg-[hsl(var(--background-page))]">
       <header className="bg-primary text-primary-foreground p-3 shadow-md flex items-center justify-between print:hidden">
         <Logo />
-        <Button variant="ghost" size="icon" onClick={startNewChat} title="Start New Chat" className="text-primary-foreground hover:bg-primary/80">
-          <MessageSquarePlus size={24} />
-          <span className="sr-only">Start New Chat</span>
-        </Button>
+        <div className="flex items-center space-x-2">
+          <Button variant="ghost" size="icon" onClick={toggleTheme} title="Toggle Theme" className="text-primary-foreground hover:bg-primary/80">
+            {theme === 'dark' ? <Sun size={24} /> : <Moon size={24} />}
+            <span className="sr-only">Toggle Theme</span>
+          </Button>
+          <Button variant="ghost" size="icon" onClick={startNewChat} title="Start New Chat" className="text-primary-foreground hover:bg-primary/80">
+            <MessageSquarePlus size={24} />
+            <span className="sr-only">Start New Chat</span>
+          </Button>
+        </div>
       </header>
       <main className="flex-grow flex flex-col overflow-hidden">
         <ChatWindow messages={messages} isLoading={isLoading} />
