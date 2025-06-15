@@ -80,8 +80,8 @@ export function ExtraChatWindow({ messages, isLoading }: ExtraChatWindowProps) {
     }, [messages, isLoading]);
   
     return (
-      <ScrollArea className="flex-grow p-4">
-        <div className="space-y-2"> {/* Updated from space-y-1 to space-y-2 */}
+      <ScrollArea className="h-full w-full p-4">
+        <div className="space-y-2 pb-4"> {/* Added pb-4 for bottom padding inside scroll */}
           {messages.map((msg) => (
             <ExtraChatMessageDisplay key={msg.id} message={msg} />
           ))}
